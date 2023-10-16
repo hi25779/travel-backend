@@ -121,3 +121,9 @@ D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\runtimes\win\
 D:\Users\85902\source\repos\TravelSite\TravelSite\obj\Debug\net5.0\TravelSite.csproj.CopyComplete
 D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\Database\touristRoutePicturesMockData.json
 D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\Database\touristRoutesMockData.json
+D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\AutoMapper.dll
+D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
