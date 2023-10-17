@@ -24,19 +24,20 @@ namespace TravelSite.Controllers
             _mapper = mapper;
         }
 
+        // /api/touristroutes?keyword=xxx
         [HttpGet]
-        public IActionResult GetTouristRoutes()
+        public IActionResult GetTouristRoutes([FromQuery] string keyword)
         {
-            var routesFromRepo = _touristRouteRepository.GetTouristRoutes();
+            var routesFromRepo = _touristRouteRepository.GetTouristRoutes(keyword);
             if (routesFromRepo == null || routesFromRepo.Count() == 0)
             {
                 return NotFound("There is no routes");
             }
-            var routesDto = _mapper.Map<List<TouristRouteDto>>(routesFromRepo);
+            var routesDto = _mapper.Map<IEnumerable<TouristRouteDto>>(routesFromRepo);
             return Ok(routesDto);
         }
 
-        // api/touristroutes/{id}
+        // api/touristroutes/{touristRouteId}
         [HttpGet("{touristRouteId:Guid}")]
         public IActionResult GetTouristRoutesById(Guid touristRouteId)
         {

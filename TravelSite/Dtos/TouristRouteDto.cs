@@ -31,5 +31,6 @@ namespace TravelSite.Dtos
         public string TravelDays { get; set; }
         public string TripType { get; set; }
         public string DepartureCity { get; set; }
+        public IEnumerable<TouristRoutePictureDto> TouristRoutePictures { get; set; }
     }
 }
