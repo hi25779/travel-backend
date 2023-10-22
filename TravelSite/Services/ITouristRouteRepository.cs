@@ -12,5 +12,7 @@ namespace TravelSite.Services
         bool HasTouristRoute(Guid id);
         IEnumerable<TouristRoutePicture> GetTouristRoutePicturesById(Guid id);
         TouristRoutePicture GetPictureById(int pictureId);
+        void AddTouristRoute(TouristRoute touristRoute);
+        void AddTouristRoutePicture(Guid touristRouteId, TouristRoutePicture touristRoutePicture);
     }
 }

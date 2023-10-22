@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using System;
 using TravelSite.Dtos;
 using TravelSite.Models;
+using TravelSite.Models.Params;
+using TravelSite.Params;
 
 namespace TravelSite.Profiles
 {
@@ -26,6 +29,12 @@ namespace TravelSite.Profiles
                     dest => dest.DepartureCity,
                     opt => opt.MapFrom(src => src.DepartureCity.ToString())
 
+                );
+
+            CreateMap<TouristRouteFromCreationParam, TouristRoute>()
+                .ForMember(
+                    dest => dest.Id,
+                    opt => opt.MapFrom(src => Guid.NewGuid())
                 );
 
 

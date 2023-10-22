@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TravelSite.Dtos;
+using TravelSite.Models;
+using TravelSite.Models.Params;
 using TravelSite.Services;
 
 namespace TravelSite.Controllers
@@ -39,7 +41,7 @@ namespace TravelSite.Controllers
 
         }
 
-        [Route("{pictureId}")]
+        [Route("{pictureId}", Name = "GetPicture")]
         [HttpGet]
         public IActionResult GetPicture(Guid routeId, int pictureId)
         {
@@ -55,6 +57,28 @@ namespace TravelSite.Controllers
             return Ok(_mapper.Map<TouristRoutePictureDto>(pictureFromRepo));
         }
 
+        public IActionResult CreateTouristPicture(
+            [FromRoute] Guid routeId,
+            [FromBody] TouristRoutePictureParam touristRoutePictureParam
+            )
+        {
+            if (!_repository.HasTouristRoute(routeId))
+            {
+                return NotFound($"Don't have this tourist route: {routeId}");
+            }
+            var pictureModel = _mapper.Map<TouristRoutePicture>(touristRoutePictureParam);
+            _repository.AddTouristRoutePicture(routeId, pictureModel);
+            var pictureDto = _mapper.Map<TouristRoutePictureDto>(pictureModel);
+            return CreatedAtRoute(
+                "GetPicture",
+                new
+                {
+                    routeId = pictureModel.TouristRouteId,
+                    pictureId = pictureModel.Id
+                },
+                pictureDto
+                );
+        }
 
     }
 }

@@ -7,6 +7,8 @@ using TravelSite.Services;
 using AutoMapper;
 using System.Collections.Generic;
 using TravelSite.Dtos;
+using TravelSite.Models.Params;
+using TravelSite.Params;
 
 namespace TravelSite.Controllers
 {
@@ -38,7 +40,7 @@ namespace TravelSite.Controllers
         }
 
         // api/touristroutes/{touristRouteId}
-        [HttpGet("{touristRouteId:Guid}")]
+        [HttpGet("{touristRouteId:Guid}", Name = "GetTouristRoutesById")]
         public IActionResult GetTouristRoutesById(Guid touristRouteId)
         {
             var routesFromRepo = _touristRouteRepository.GetTouristRoute(touristRouteId);
@@ -48,6 +50,19 @@ namespace TravelSite.Controllers
             }
             var routeDto = _mapper.Map<TouristRouteDto>(routesFromRepo);
             return Ok(routeDto);
+        }
+
+        [HttpPost]
+        public IActionResult CreateTouristRoute([FromBody] TouristRouteFromCreationParam touristRouteFromCreationParam)
+        {
+            var touristRouteModel = _mapper.Map<TouristRoute>(touristRouteFromCreationParam);
+            _touristRouteRepository.AddTouristRoute(touristRouteModel);
+            var touristRouteDto = _mapper.Map<TouristRouteDto>(touristRouteModel);
+            return CreatedAtRoute(
+                "GetTouristRoutesById", 
+                new { touristRouteId = touristRouteDto.Id }, 
+                touristRouteDto
+                );
         }
     }
 }

@@ -49,5 +49,31 @@ namespace TravelSite.Services
             return _context.TouristRoutesPictures.Where(p => p.Id == pictureId).FirstOrDefault();
         }
 
+        public void AddTouristRoute(TouristRoute touristRoute)
+        {
+            if (touristRoute == null)
+            {
+                throw new ArgumentNullException(nameof(touristRoute));
+            }
+            _context.TouristRoutes.Add(touristRoute);
+            _context.SaveChanges();
+        }
+
+        public void AddTouristRoutePicture(Guid touristRouteId, TouristRoutePicture touristRoutePicture)
+        {
+            if (touristRouteId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(touristRouteId));
+            }
+            if (touristRoutePicture == null)
+            {
+                throw new ArgumentNullException(nameof(touristRoutePicture));
+
+            }
+            touristRoutePicture.TouristRouteId = touristRouteId;
+            _context.Add(touristRoutePicture);
+            _context.SaveChanges();
+        }
+
     }
 }
