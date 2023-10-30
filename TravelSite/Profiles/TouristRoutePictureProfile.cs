@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using TravelSite.Dtos;
+using TravelSite.Dtos.Create;
 using TravelSite.Models;
-using TravelSite.Models.Params;
 
 namespace TravelSite.Profiles
 {
@@ -10,7 +10,8 @@ namespace TravelSite.Profiles
         public TouristRoutePictureProfile()
         {
             CreateMap<TouristRoutePicture, TouristRoutePictureDto>();
-            CreateMap<TouristRoutePictureParam, TouristRoutePicture > ();
+            CreateMap<TouristRoutePictureForCreate, TouristRoutePicture>();
+            CreateMap<TouristRoutePicture, TouristRoutePictureForCreate>();
         }
     }
 }

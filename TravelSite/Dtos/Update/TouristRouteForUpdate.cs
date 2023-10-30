@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TravelSite.Models;
-using TravelSite.Models.Params;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System;
+using TravelSite.Dtos.Create;
 
-namespace TravelSite.Params
+namespace TravelSite.Dtos.Update
 {
-    public class TouristRouteFromCreationParam
+    public class TouristRouteForUpdate
     {
+        [Required]
+        [MaxLength(100)]
         public string Title { get; set; }
 
+        [Required]
+        [MaxLength(1500)]
         public string Description { get; set; }
 
         public decimal price { get; set; }
@@ -28,7 +31,8 @@ namespace TravelSite.Params
         public string TravelDays { get; set; }
         public string TripType { get; set; }
         public string DepartureCity { get; set; }
-        public ICollection<TouristRoutePictureParam> TouristRoutePictures { get; set; }
-            = new List<TouristRoutePictureParam>();
+        public ICollection<TouristRoutePictureForCreate> TouristRoutePictures { get; set; }
+            = new List<TouristRoutePictureForCreate>();
+
     }
 }

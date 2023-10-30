@@ -74,6 +74,10 @@ namespace TravelSite.Services
             _context.Add(touristRoutePicture);
             _context.SaveChanges();
         }
+        public bool Save()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
 
     }
 }

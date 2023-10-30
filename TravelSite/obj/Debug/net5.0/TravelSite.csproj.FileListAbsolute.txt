@@ -127,3 +127,6 @@ D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\Microsoft.Ext
 D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
 D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Users\85902\source\repos\TravelSite\TravelSite\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

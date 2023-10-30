@@ -2,8 +2,8 @@
 using System;
 using TravelSite.Dtos;
 using TravelSite.Models;
-using TravelSite.Models.Params;
-using TravelSite.Params;
+using TravelSite.Dtos.Create;
+using TravelSite.Dtos.Update;
 
 namespace TravelSite.Profiles
 {
@@ -31,12 +31,13 @@ namespace TravelSite.Profiles
 
                 );
 
-            CreateMap<TouristRouteFromCreationParam, TouristRoute>()
+            CreateMap<TouristRouteForCreate, TouristRoute>()
                 .ForMember(
                     dest => dest.Id,
                     opt => opt.MapFrom(src => Guid.NewGuid())
                 );
-
+            CreateMap<TouristRouteForUpdate, TouristRoute>();
+            CreateMap<TouristRoute, TouristRouteForUpdate>();
 
         }
     }

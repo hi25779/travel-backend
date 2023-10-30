@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TravelSite.Dtos;
+using TravelSite.Dtos.Create;
 using TravelSite.Models;
-using TravelSite.Models.Params;
 using TravelSite.Services;
 
 namespace TravelSite.Controllers
@@ -59,7 +59,7 @@ namespace TravelSite.Controllers
 
         public IActionResult CreateTouristPicture(
             [FromRoute] Guid routeId,
-            [FromBody] TouristRoutePictureParam touristRoutePictureParam
+            [FromBody] TouristRoutePictureForCreate touristRoutePictureParam
             )
         {
             if (!_repository.HasTouristRoute(routeId))

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using TravelSite.Models;
@@ -7,8 +6,9 @@ using TravelSite.Services;
 using AutoMapper;
 using System.Collections.Generic;
 using TravelSite.Dtos;
-using TravelSite.Models.Params;
-using TravelSite.Params;
+using TravelSite.Dtos.Create;
+using TravelSite.Dtos.Update;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace TravelSite.Controllers
 {
@@ -53,7 +53,7 @@ namespace TravelSite.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTouristRoute([FromBody] TouristRouteFromCreationParam touristRouteFromCreationParam)
+        public IActionResult CreateTouristRoute([FromBody] TouristRouteForCreate touristRouteFromCreationParam)
         {
             var touristRouteModel = _mapper.Map<TouristRoute>(touristRouteFromCreationParam);
             _touristRouteRepository.AddTouristRoute(touristRouteModel);
@@ -63,6 +63,42 @@ namespace TravelSite.Controllers
                 new { touristRouteId = touristRouteDto.Id }, 
                 touristRouteDto
                 );
+        }
+
+        [HttpPut("{touristRouteId}")]
+        public IActionResult UpdateTouristRoute(
+            [FromRoute]Guid touristRouteId,
+            [FromBody]TouristRouteForUpdate touristRouteParam
+            )
+        {
+            if (!_touristRouteRepository.HasTouristRoute(touristRouteId))
+            {
+                return NotFound($"There is no {touristRouteId} route.");
+            }
+            var model = _touristRouteRepository.GetTouristRoute(touristRouteId);
+            _mapper.Map(touristRouteParam, model);
+            _touristRouteRepository.Save();
+            return NoContent();
+        }
+
+        [HttpPatch("{touristRouteId}")]
+        public IActionResult PartiallyUpdateTouristRoute(
+                [FromRoute] Guid touristRouteId,
+                [FromBody] JsonPatchDocument<TouristRouteForUpdate> patchDocument
+            )
+        {
+            if (!_touristRouteRepository.HasTouristRoute(touristRouteId))
+            {
+                return NotFound($"There is no {touristRouteId} route.");
+            }
+            var touristRouteFromRepo = _touristRouteRepository.GetTouristRoute(touristRouteId);
+            var touristRouteToPatch = _mapper.Map<TouristRouteForUpdate>(touristRouteFromRepo);
+            patchDocument.ApplyTo(touristRouteToPatch);
+
+            _mapper.Map(touristRouteToPatch, touristRouteFromRepo);
+            _touristRouteRepository.Save();
+            return NoContent();
+
         }
     }
 }

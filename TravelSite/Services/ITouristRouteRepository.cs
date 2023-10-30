@@ -14,5 +14,6 @@ namespace TravelSite.Services
         TouristRoutePicture GetPictureById(int pictureId);
         void AddTouristRoute(TouristRoute touristRoute);
         void AddTouristRoutePicture(Guid touristRouteId, TouristRoutePicture touristRoutePicture);
+        bool Save();
     }
 }

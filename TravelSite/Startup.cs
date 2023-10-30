@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,11 @@ namespace TravelSite
             services.AddControllers(setupAction =>
             {
                 setupAction.ReturnHttpNotAcceptable= true;
-            }).AddXmlDataContractSerializerFormatters();
+            }).AddXmlDataContractSerializerFormatters()
+            .AddNewtonsoftJson(setupAction =>
+            {
+                setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
             services.AddTransient<ITouristRouteRepository, TouristRouteRepository>();
             services.AddDbContext<AppDbContext>(option =>
             {
