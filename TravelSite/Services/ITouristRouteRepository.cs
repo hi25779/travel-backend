@@ -2,18 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using TravelSite.Models;
+using System.Threading.Tasks;
 
 namespace TravelSite.Services
 {
     public interface ITouristRouteRepository
     {
-        IEnumerable<TouristRoute> GetTouristRoutes(string keyword);
-        TouristRoute GetTouristRoute(Guid id);
-        bool HasTouristRoute(Guid id);
-        IEnumerable<TouristRoutePicture> GetTouristRoutePicturesById(Guid id);
-        TouristRoutePicture GetPictureById(int pictureId);
+        Task<IEnumerable<TouristRoute>> GetTouristRoutesAsync(string keyword);
+        Task<TouristRoute> GetTouristRouteAsync(Guid id);
+        Task<bool> HasTouristRouteAsync(Guid id);
+        Task<IEnumerable<TouristRoutePicture>> GetTouristRoutePicturesByIdAsync(Guid id);
+        Task<TouristRoutePicture> GetPictureByIdAsync(int pictureId);
         void AddTouristRoute(TouristRoute touristRoute);
         void AddTouristRoutePicture(Guid touristRouteId, TouristRoutePicture touristRoutePicture);
-        bool Save();
+        void DeleteTouristRoute(TouristRoute touristRoute);
+        void DeleteTouristRoutePicture(TouristRoutePicture touristRoutePicture);
+        Task<bool> SaveAsync();
     }
 }

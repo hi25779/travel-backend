@@ -31,11 +31,11 @@ namespace TravelSite
             services.AddControllers(setupAction =>
             {
                 setupAction.ReturnHttpNotAcceptable= true;
-            }).AddXmlDataContractSerializerFormatters()
+            })
             .AddNewtonsoftJson(setupAction =>
             {
                 setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
+            }).AddXmlDataContractSerializerFormatters();
             services.AddTransient<ITouristRouteRepository, TouristRouteRepository>();
             services.AddDbContext<AppDbContext>(option =>
             {

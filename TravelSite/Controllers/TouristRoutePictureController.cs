@@ -8,6 +8,7 @@ using TravelSite.Dtos;
 using TravelSite.Dtos.Create;
 using TravelSite.Models;
 using TravelSite.Services;
+using System.Threading.Tasks;
 
 namespace TravelSite.Controllers
 {
@@ -26,13 +27,13 @@ namespace TravelSite.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetPictureListForTouristRoute(Guid routeId)
+        public async Task<IActionResult> GetPictureListForTouristRoute(Guid routeId)
         {
-            if (!_repository.HasTouristRoute(routeId))
+            if (!(await _repository.HasTouristRouteAsync(routeId)))
             {
                 return NotFound($"Don't have this tourist route: {routeId}");
             }
-            var pictureFromRepo = _repository.GetTouristRoutePicturesById(routeId);
+            var pictureFromRepo = await _repository.GetTouristRoutePicturesByIdAsync(routeId);
             if (pictureFromRepo == null || pictureFromRepo.Count() <= 0)
             {
                 return NotFound("This route don't has picture");
@@ -43,13 +44,13 @@ namespace TravelSite.Controllers
 
         [Route("{pictureId}", Name = "GetPicture")]
         [HttpGet]
-        public IActionResult GetPicture(Guid routeId, int pictureId)
+        public async Task<IActionResult> GetPicture(Guid routeId, int pictureId)
         {
-            if (!_repository.HasTouristRoute(routeId))
+            if (!(await _repository.HasTouristRouteAsync(routeId)))
             {
                 return NotFound($"Don't have this tourist route: {routeId}");
             }
-            var pictureFromRepo = _repository.GetPictureById(pictureId);
+            var pictureFromRepo = await _repository.GetPictureByIdAsync(pictureId);
             if (pictureFromRepo == null) 
             {
                 return NotFound("Can't find this picture");
@@ -57,12 +58,12 @@ namespace TravelSite.Controllers
             return Ok(_mapper.Map<TouristRoutePictureDto>(pictureFromRepo));
         }
 
-        public IActionResult CreateTouristPicture(
+        public async Task<IActionResult> CreateTouristPicture(
             [FromRoute] Guid routeId,
             [FromBody] TouristRoutePictureForCreate touristRoutePictureParam
             )
         {
-            if (!_repository.HasTouristRoute(routeId))
+            if (!(await _repository.HasTouristRouteAsync(routeId)))
             {
                 return NotFound($"Don't have this tourist route: {routeId}");
             }
@@ -78,6 +79,25 @@ namespace TravelSite.Controllers
                 },
                 pictureDto
                 );
+        }
+
+        [HttpDelete("{pictureId}")]
+        public async Task<IActionResult> DeleteTouristRoutePicture(
+            [FromRoute]Guid routeId,
+            [FromRoute]int pictureId)
+        {
+            if (!(await _repository.HasTouristRouteAsync(routeId)))
+            {
+                return NotFound($"Don't have this tourist route: {routeId}");
+            }
+            var pictureFromRepo = await _repository.GetPictureByIdAsync(pictureId);
+            if (pictureFromRepo == null)
+            {
+                return NotFound("Can't find this picture");
+            }
+            _repository.DeleteTouristRoutePicture(pictureFromRepo);
+            await _repository.SaveAsync();
+            return NoContent();
         }
 
     }
