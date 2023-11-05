@@ -11,6 +11,7 @@ using TravelSite.Dtos.Update;
 using Microsoft.AspNetCore.JsonPatch;
 using FakeXiecheng.API.Helper;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TravelSite.Controllers
 {
@@ -55,6 +56,7 @@ namespace TravelSite.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateTouristRoute([FromBody] TouristRouteForCreate touristRouteFromCreationParam)
         {
             var touristRouteModel = _mapper.Map<TouristRoute>(touristRouteFromCreationParam);
