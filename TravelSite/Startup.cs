@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelSite.Database;
+using TravelSite.Models;
 using TravelSite.Services;
 
 namespace TravelSite
@@ -33,7 +34,7 @@ namespace TravelSite
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -67,6 +68,7 @@ namespace TravelSite
                 option.UseSqlServer(Configuration["DbContext:ConnectionString"]);
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,7 +85,6 @@ namespace TravelSite
 
 
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {

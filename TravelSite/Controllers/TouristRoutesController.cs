@@ -31,6 +31,8 @@ namespace TravelSite.Controllers
 
         // /api/touristroutes?keyword=xxx
         [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+
         public async Task<IActionResult> GetTouristRoutesAsync([FromQuery] string keyword)
         {
             var routesFromRepo = await _touristRouteRepository.GetTouristRoutesAsync(keyword);
@@ -44,6 +46,8 @@ namespace TravelSite.Controllers
 
         // api/touristroutes/{touristRouteId}
         [HttpGet("{touristRouteId:Guid}", Name = "GetTouristRoutesById")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+
         public async Task<IActionResult> GetTouristRoutesById(Guid touristRouteId)
         {
             var routesFromRepo = await _touristRouteRepository.GetTouristRouteAsync(touristRouteId);
@@ -56,6 +60,7 @@ namespace TravelSite.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [Authorize(Roles = "Admin")]
         public IActionResult CreateTouristRoute([FromBody] TouristRouteForCreate touristRouteFromCreationParam)
         {
@@ -70,6 +75,8 @@ namespace TravelSite.Controllers
         }
 
         [HttpPut("{touristRouteId}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+
         public async Task<IActionResult> UpdateTouristRoute(
             [FromRoute]Guid touristRouteId,
             [FromBody]TouristRouteForUpdate touristRouteParam
@@ -86,6 +93,8 @@ namespace TravelSite.Controllers
         }
 
         [HttpPatch("{touristRouteId}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+
         public async Task<IActionResult> PartiallyUpdateTouristRoute(
                 [FromRoute] Guid touristRouteId,
                 [FromBody] JsonPatchDocument<TouristRouteForUpdate> patchDocument
@@ -106,6 +115,8 @@ namespace TravelSite.Controllers
         }
 
         [HttpDelete("{touristRouteId}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+
         public async Task<IActionResult> DeleteTouristRoute([FromRoute]Guid touristRouteId)
         {
             if (!(await _touristRouteRepository.HasTouristRouteAsync(touristRouteId)))
@@ -120,6 +131,8 @@ namespace TravelSite.Controllers
         }
 
         [HttpDelete("({touristIDs})")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+
         public IActionResult DeleteTouristRouteByIDs(
             [ModelBinder(BinderType = typeof(ArrayModelBinder))][FromRoute]IEnumerable<Guid> touristIDs)
         {
